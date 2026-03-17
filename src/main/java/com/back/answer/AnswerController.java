@@ -39,7 +39,8 @@ public class AnswerController {
             return "question_detail";
         }
         Answer answer = this.answerService.create(question, answerForm.getContent(), siteUser);
-        return String.format("redirect:/question/detail/%s", id);
+        return String.format("redirect:/question/detail/%s#answer_%s",
+                answer.getQuestion().getId(), answer.getId());
     }
 
     @PreAuthorize("isAuthenticalted()")
@@ -85,8 +86,5 @@ public class AnswerController {
         SiteUser siteUser = this.userService.getUser(principal.getName());
         this.answerService.vote(answer, siteUser);
         return String.format("redirect:/question/detail/%s#answer_%s", answer.getQuestion().getId(), answer.getId());
-        여기까지 완료 3 - 11 앵커 기능 추가~
-//        return String.format("redirect:/question/detail/%s#answer_%s",
-//                answer.getQuestion().getId(), answer.getId());
     }
 }
